@@ -2,7 +2,7 @@
 
 /*Gameboard*/
 const gameBoard = (() =>{
-    let board = ['x','o','x','x','x','o','x','o','x']
+    let board = ['','','','','','','','','']
 
     let renderGrid = (board) => {
         
@@ -17,6 +17,12 @@ const gameBoard = (() =>{
             boardContainer.appendChild(grid);  
             boardContainer.style.gridTemplateColumns = `repeat(${3},1fr)`
         }
+        let grids = document.querySelectorAll('.grid')
+        grids.forEach(grid => {
+            grid.addEventListener('click',() =>{
+                grid.textContent = 'x'
+            })
+        });
 
     }
 
@@ -32,4 +38,5 @@ const player = (name,marker) => {
 }
 
 const player1 = player('Alex','x')
+gameBoard.renderGrid(gameBoard.board)
 
