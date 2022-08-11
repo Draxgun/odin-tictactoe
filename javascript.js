@@ -84,12 +84,17 @@ const gameBoard = (() =>{
         let boardArray = boardSatus();
         let x = xSpaces(boardArray);
         let o = oSpaces(boardArray);
+        let checker = (arr, target) => target.every(v => arr.includes(v));
+        let results = []
         winningCombinations.forEach(winningCombination => {
-            console.log(x)
-            console.log(winningCombination)
-            console.log(x === winningCombination);
+            
+            results.push(checker(x,winningCombination));
         });
-
+        if(results.includes(true)){
+            console.log('x won')
+        }else{
+            console.log('x lost')
+        }
 
     }
 
