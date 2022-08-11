@@ -21,7 +21,7 @@ const gameBoard = (() =>{
         let grids = document.querySelectorAll('.grid')
         grids.forEach(grid => {
             grid.addEventListener('click',() =>{
-                grid.textContent = 'x'
+                grid.textContent = document.querySelector('.playerMarker').textContent
             })
         });
 
@@ -38,7 +38,7 @@ const gameBoard = (() =>{
         [2, 4, 6]
     ]
     
-    let boardSatus = () =>{
+    let boardStatus = () =>{
         let grids = document.querySelectorAll('.grid')
         let boardArray = [];
         grids.forEach(grid => {
@@ -47,61 +47,82 @@ const gameBoard = (() =>{
         return boardArray
     }
 
-    let emptySpaces = (boardSatus) => {
+    let emptySpaces = (boardStatus) => {
         let emptySpaceArray = [];
         let element = '';
-        let idx = boardSatus.indexOf(element);
+        let idx = boardStatus.indexOf(element);
         while (idx != -1) {
             emptySpaceArray.push(idx);
-            idx = boardSatus.indexOf(element, idx + 1);
+            idx = boardStatus.indexOf(element, idx + 1);
         }
         return emptySpaceArray
     }
 
-    let xSpaces = (boardSatus) => {
+    let xSpaces = (boardStatus) => {
         let emptySpaceArray = [];
         let element = 'x';
-        let idx = boardSatus.indexOf(element);
+        let idx = boardStatus.indexOf(element);
         while (idx != -1) {
             emptySpaceArray.push(idx);
-            idx = boardSatus.indexOf(element, idx + 1);
+            idx = boardStatus.indexOf(element, idx + 1);
         }
         return emptySpaceArray
     }
 
-    let oSpaces = (boardSatus) => {
+    let oSpaces = (boardStatus) => {
         let emptySpaceArray = [];
         let element = 'o';
-        let idx = boardSatus.indexOf(element);
+        let idx = boardStatus.indexOf(element);
         while (idx != -1) {
             emptySpaceArray.push(idx);
-            idx = boardSatus.indexOf(element, idx + 1);
+            idx = boardStatus.indexOf(element, idx + 1);
         }
         return emptySpaceArray
     }
 
     let checkForWinner = () => {
-        let boardArray = boardSatus();
+        let boardArray = boardStatus();
         let x = xSpaces(boardArray);
         let o = oSpaces(boardArray);
         let checker = (arr, target) => target.every(v => arr.includes(v));
+        
         let results = []
         winningCombinations.forEach(winningCombination => {
-            
             results.push(checker(x,winningCombination));
         });
+
         if(results.includes(true)){
-            console.log('x won')
-        }else{
-            console.log('x lost')
+            winner = 'x';
+            gameOver = true;
+        return winner
+        } else{
+            winningCombinations.forEach(winningCombination => {
+                results.push(checker(o,winningCombination));
+            });
+    
+    
+            if(results.includes(true)){
+                winner = 'o';
+                gameOver = true;
+                return winner
+            }else{
+                winner = null;
+                gameOver = false;
+                return winner
+
+            }
         }
+
+
+
+ 
 
     }
 
     return{
         board,
         renderGrid,
-        boardSatus,
+        boardStatus,
         winningCombinations,
         checkForWinner
 
@@ -113,7 +134,16 @@ const player = (name,marker) => {
     return {name,marker}
 }
 
+let marker  = document.querySelector('.playerMarker')
 
+marker.addEventListener('click', () => {
+    if (marker.textContent === 'x'){
+        marker.textContent = 'o'
+    } else {
+        marker.textContent = 'x'
+        console.log('hola')
+    }
+})
 
 
 
