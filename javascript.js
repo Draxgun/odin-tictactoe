@@ -22,6 +22,8 @@ const gameBoard = (() =>{
         grids.forEach(grid => {
             grid.addEventListener('click',() =>{
                 grid.textContent = document.querySelector('.playerMarker').textContent
+                grid.classList.remove('grid')
+                grid.classList.add('ocuppiedGrid')
             })
         });
 
