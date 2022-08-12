@@ -11,6 +11,8 @@ const gameBoard = (() =>{
         /* Creates the container for the board */
         let boardContainer = document.createElement('div')
         boardContainer.classList.add("board")
+        boardContainer.style.gridTemplateColumns = `repeat(${3},1fr)`
+        boardContainer.style.gridTemplateRows = `repeat(${3},1fr)`
         content.appendChild(boardContainer)
                 
         
@@ -20,7 +22,6 @@ const gameBoard = (() =>{
             grid.classList.add("grid");
             grid.setAttribute('id', `grid${i}`);
             boardContainer.appendChild(grid);  
-            boardContainer.style.gridTemplateColumns = `repeat(${3},1fr)`
         }
 
         let grids = document.querySelectorAll('.grid')
@@ -43,20 +44,29 @@ const gameBoard = (() =>{
         
         /* Menu Container */
         let menuHUD = document.createElement('div')
-        menuHUD.classList.add('menuContainer')
+        menuHUD.classList.add('menuHUDContainer')
         content.appendChild(menuHUD)
 
         /*Reset Button */
         let resetButton = document.createElement('button')
-        resetButton.classList.add('menuButton')
+        resetButton.classList.add('menuHUDButton')
         resetButton.textContent = 'Reset';
         resetButton.addEventListener('click',()=>{
             content.removeChild(content.children[2])
             createBoard()
         })
+        menuHUD.appendChild(resetButton)
+
+         /*home Button */
+         let homeButton = document.createElement('button')
+         homeButton.classList.add('menuHUDButton')
+         homeButton.textContent = 'Home';
+         homeButton.addEventListener('click',()=>{
+            window.location.reload();
+         })   
 
     
-        menuHUD.appendChild(resetButton)
+        menuHUD.appendChild(homeButton)
 
 
 
