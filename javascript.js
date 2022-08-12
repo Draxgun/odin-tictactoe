@@ -1,5 +1,7 @@
 
 
+
+
 /*Gameboard*/
 const gameBoard = (() =>{
     
@@ -7,7 +9,8 @@ const gameBoard = (() =>{
 
     let renderGrid = (board) => {
         
-        let boardContainer = document.querySelector('.board')
+        let boardContainer = document.createElement('div')
+        boardContainer.classList.add("board")
         console.log('hola')
         for(let i=0; i<=8;i++) {
             /* Creates a 3 by 3 grid */        
@@ -24,6 +27,7 @@ const gameBoard = (() =>{
                 grid.textContent = document.querySelector('.playerMarker').textContent
                 grid.classList.remove('grid')
                 grid.classList.add('ocuppiedGrid')
+                console.log(checkForWinner())
             })
         });
 
@@ -41,7 +45,7 @@ const gameBoard = (() =>{
     ]
     
     let boardStatus = () =>{
-        let grids = document.querySelectorAll('.grid')
+        let grids = document.querySelectorAll('.ocuppiedGrid')
         let boardArray = [];
         grids.forEach(grid => {
             boardArray.push(grid.textContent)
@@ -147,9 +151,32 @@ marker.addEventListener('click', () => {
     }
 })
 
+const menu = (() =>{
+
+
+    let pvpMode = document.getElementById('pvpButton')
+    pvpMode.addEventListener('click',() =>{
+        let gameMode = 'pvp'
+    })
+
+    let getGameMode = gameMode
+
+    return{
+        getGameMode,
+
+
+    }
+
+})();
 
 
 
-const player1 = player('Alex','x')
-gameBoard.renderGrid(gameBoard.board)
+
+const gameLogic = ((player1,player2,gameBoard) => {
+
+    
+
+})();
+
+
 
