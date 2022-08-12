@@ -5,13 +5,60 @@
 /*Gameboard*/
 const gameBoard = (() =>{
     
+    let createBoard = () =>{
+        
+        let content = document.querySelector('.content');
+        /* Creates the container for the board */
+        let boardContainer = document.createElement('div')
+        boardContainer.classList.add("board")
+        content.appendChild(boardContainer)
+                
+        
+        for(let i=0; i<=8;i++) {
+            /* Creates a 3 by 3 grid */        
+            let grid = document.createElement('div');
+            grid.classList.add("grid");
+            grid.setAttribute('id', `grid${i}`);
+            boardContainer.appendChild(grid);  
+            boardContainer.style.gridTemplateColumns = `repeat(${3},1fr)`
+        }
 
+        let grids = document.querySelectorAll('.grid')
+        grids.forEach(grid => {
+            console.log(grid.textContent)
+            grid.addEventListener('click',() =>{
+                grid.textContent = 'x'
+                grid.classList.remove('grid')
+                grid.classList.add('ocuppiedGrid')
+                console.log(checkForWinner())
+            })
+        });
+    }
     let renderGameScreen = () => {
         
         /* In charge of deleting the menu */
         let content = document.querySelector('.content');
         content.innerHTML = '';
         console.log('hola')
+        
+        /* Menu Container */
+        let menuHUD = document.createElement('div')
+        menuHUD.classList.add('menuContainer')
+        content.appendChild(menuHUD)
+
+        /*Reset Button */
+        let resetButton = document.createElement('button')
+        resetButton.classList.add('menuButton')
+        resetButton.textContent = 'Reset';
+        resetButton.addEventListener('click',()=>{
+            content.removeChild(content.children[2])
+            createBoard()
+        })
+
+    
+        menuHUD.appendChild(resetButton)
+
+
 
         /*CreatesHeader For score*/
         let headerScore = document.createElement('div');
@@ -21,7 +68,7 @@ const gameBoard = (() =>{
         /* Player 1 */
         let player1Container = document.createElement('div');
         player1Container.classList.add('playerContainer')
-        player1Container.textContent = ` Player 1 \ 
+        player1Container.textContent = ` Player 1 X\ 
         ${player1.name} ` 
         headerScore.appendChild(player1Container)
 
@@ -44,38 +91,16 @@ const gameBoard = (() =>{
         /* Player 2 */
         let player2Container = document.createElement('div');
         player2Container.classList.add('playerContainer')
-        player2Container.textContent = ` Player 2 \
+        player2Container.textContent = ` Player 2 O \
         ${player2.name} ` 
         headerScore.appendChild(player2Container)
 
 
         content.appendChild(headerScore)
 
-        /* Creates the container for the board */
-        let boardContainer = document.createElement('div')
-        boardContainer.classList.add("board")
-        content.appendChild(boardContainer)
-        
-        
-        for(let i=0; i<=8;i++) {
-            /* Creates a 3 by 3 grid */        
-            let grid = document.createElement('div');
-            grid.classList.add("grid");
-            grid.setAttribute('id', `grid${i}`);
-            boardContainer.appendChild(grid);  
-            boardContainer.style.gridTemplateColumns = `repeat(${3},1fr)`
-        }
 
-        let grids = document.querySelectorAll('.grid')
-        grids.forEach(grid => {
-            console.log(grid.textContent)
-            grid.addEventListener('click',() =>{
-                grid.textContent = 'x'
-                grid.classList.remove('grid')
-                grid.classList.add('ocuppiedGrid')
-                console.log(checkForWinner())
-            })
-        });
+        createBoard();
+        
         
 
     }
