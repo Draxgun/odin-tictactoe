@@ -29,6 +29,7 @@ body{
 }
 .content{
     display: flex;
+    flex-direction: column;
     align-items:center ;
     justify-content: center;
     justify-items: center;
@@ -99,6 +100,31 @@ button:focus {
     padding-left: 15px;
     background-color: var(--grey);
     color: var(--blue);
+}
+
+.headerScore{
+    display: flex;
+    flex-direction: row;
+    width: 600px;
+    padding:30px;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+}
+
+.headerScore >*{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: var(--blue);
+    font-weight: bold;
+}
+
+.playerTurnContainer{
+    display: flex;
+    flex-direction: column;
 }
 
 .board{

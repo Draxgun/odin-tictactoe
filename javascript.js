@@ -5,14 +5,51 @@
 /*Gameboard*/
 const gameBoard = (() =>{
     
-    let board = ['','','','','','','','','']
 
-    let renderGrid = (board) => {
+    let renderGameScreen = () => {
         
         /* In charge of deleting the menu */
         let content = document.querySelector('.content');
         content.innerHTML = '';
         console.log('hola')
+
+        /*CreatesHeader For score*/
+        let headerScore = document.createElement('div');
+        headerScore.classList.add('headerScore')
+
+        
+        /* Player 1 */
+        let player1Container = document.createElement('div');
+        player1Container.classList.add('playerContainer')
+        player1Container.textContent = ` Player 1 \ 
+        ${player1.name} ` 
+        headerScore.appendChild(player1Container)
+
+        /*Player turn*/
+        let playerTurnContainer = document.createElement('div');
+        playerTurnContainer.classList.add('playerTurnContainer');
+        
+        let playerTurnContainerHeader = document.createElement('div');
+        playerTurnContainerHeader.classList.add('playerContainerHeader');
+        playerTurnContainerHeader.textContent = `Player`;
+        playerTurnContainer.appendChild(playerTurnContainerHeader)
+
+        let playerTurnContainerTurn = document.createElement('div');
+        playerTurnContainerTurn.classList.add('playerContainerHeader');
+        playerTurnContainerTurn.textContent = `Alex`;
+        playerTurnContainer.appendChild(playerTurnContainerTurn)
+
+        headerScore.appendChild(playerTurnContainer)
+
+        /* Player 2 */
+        let player2Container = document.createElement('div');
+        player2Container.classList.add('playerContainer')
+        player2Container.textContent = ` Player 2 \
+        ${player2.name} ` 
+        headerScore.appendChild(player2Container)
+
+
+        content.appendChild(headerScore)
 
         /* Creates the container for the board */
         let boardContainer = document.createElement('div')
@@ -25,7 +62,6 @@ const gameBoard = (() =>{
             let grid = document.createElement('div');
             grid.classList.add("grid");
             grid.setAttribute('id', `grid${i}`);
-            grid.textContent = board[i-1]
             boardContainer.appendChild(grid);  
             boardContainer.style.gridTemplateColumns = `repeat(${3},1fr)`
         }
@@ -138,8 +174,7 @@ const gameBoard = (() =>{
     }
 
     return{
-        board,
-        renderGrid,
+     renderGameScreen,
         boardStatus,
         winningCombinations,
         checkForWinner
@@ -154,9 +189,14 @@ const player = (name,marker) => {
 
 const menu = (() =>{
 
-
     let pvpMode = document.getElementById('pvpButton')
     pvpMode.addEventListener('click',() =>{
+        
+        renderPVPMenu()
+
+    })
+
+    let renderPVPMenu = () =>{
         let menuContents = document.querySelector('.menuContents')
         menuContents.innerHTML = '';
 
@@ -195,21 +235,19 @@ const menu = (() =>{
         start.setAttribute('id','startButton')
         start.textContent = 'Play!'
         menuContents.appendChild(start)
-        start.addEventListener('click',() =>{
-            gameBoard.renderGrid(gameBoard.board)
+        start.addEventListener('click',() =>{    
+            player1 = player(player1Input.value,'x')
+            player2 = player(player2Input.value,'o')
+            gameBoard.renderGameScreen()
+            return player1,player2
         })
-
-
-    })
-
-
-
+    }
 
 
 })();
 
-
-
+/* To get back to home */
+/* window.location.reload(); */
 
 const gameLogic = ((player1,player2,gameBoard) => {
 
