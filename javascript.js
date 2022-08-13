@@ -1,6 +1,8 @@
 
 
-
+let turn = 1
+let winner = ''
+let playerTurn = ''
 
 /*Gameboard*/
 const gameBoard = (() =>{
@@ -21,7 +23,7 @@ const gameBoard = (() =>{
             let grid = document.createElement('div');
             grid.classList.add("grid");
             grid.setAttribute('id', `grid${i}`);
-            grid.textContent = ''
+            grid.textContent = '';
             boardContainer.appendChild(grid);  
         }
 
@@ -29,9 +31,25 @@ const gameBoard = (() =>{
         grids.forEach(grid => {
             console.log(grid.textContent)
             grid.addEventListener('click',() =>{
-                grid.textContent = 'x'
-                grid.classList.add('ocuppiedGrid')
-                console.log(checkForWinner())
+                if(turn%2 === 0){
+                    turn += 1
+                    let playerTurnContainerTurn = document.querySelector('.playerContainerTurn')
+                    playerTurnContainerTurn.textContent = player2.name
+                    console.log(turn)
+                    grid.textContent = 'o'
+                    grid.classList.add('ocuppiedGrid')
+                    console.log(checkForWinner())
+                }else{
+                    let playerTurnContainerTurn = document.querySelector('.playerContainerTurn')
+                    playerTurnContainerTurn.textContent = player1.name
+                    turn += 1
+                    console.log(turn)
+                    grid.textContent = 'x'
+                    grid.classList.add('ocuppiedGrid')
+                    console.log(checkForWinner())
+                }
+                
+                
             })
         });
     }
@@ -52,6 +70,7 @@ const gameBoard = (() =>{
         resetButton.classList.add('menuHUDButton')
         resetButton.textContent = 'Reset';
         resetButton.addEventListener('click',()=>{
+            turn = 1;
             content.removeChild(content.children[2])
             createBoard()
         })
@@ -92,7 +111,7 @@ const gameBoard = (() =>{
         playerTurnContainer.appendChild(playerTurnContainerHeader)
 
         let playerTurnContainerTurn = document.createElement('div');
-        playerTurnContainerTurn.classList.add('playerContainerHeader');
+        playerTurnContainerTurn.classList.add('playerContainerTurn');
         playerTurnContainerTurn.textContent = `Alex`;
         playerTurnContainer.appendChild(playerTurnContainerTurn)
 
@@ -177,15 +196,12 @@ const gameBoard = (() =>{
         
         let results = []
         winningCombinations.forEach(winningCombination => {
-            console.log(x)
-            console.log(winningCombination)
-            console.log(checker(x,winningCombination))
             results.push(checker(x,winningCombination));
         });
 
         if(results.includes(true)){
             winner = 'x';
-            gameOver = true;
+            renderGameScreen()
             alert('x won!')
         return winner
         } else{
@@ -193,14 +209,15 @@ const gameBoard = (() =>{
                 results.push(checker(o,winningCombination));
             });
     
-    
             if(results.includes(true)){
-                winner = 'o';
+                renderGameScreen()
                 gameOver = true;
+                alert('o won!')
                 return winner
-            }else{
-                winner = null;
-                gameOver = false;
+            }else if (results.includes(true)== false && turn == 10){
+                
+                alert('It is tie!')
+                renderGameScreen()
                 return winner
 
             }
@@ -211,6 +228,8 @@ const gameBoard = (() =>{
  
 
     }
+
+
 
     return{
      renderGameScreen,
@@ -282,15 +301,6 @@ const menu = (() =>{
         })
     }
 
-
-})();
-
-/* To get back to home */
-/* window.location.reload(); */
-
-const gameLogic = ((player1,player2,gameBoard) => {
-
-    
 
 })();
 
