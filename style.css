@@ -155,13 +155,37 @@ button:focus {
 }
 
 .grid,.ocuppiedGrid{
-    border: solid 1px black;
+    border: solid 4px var(--blue);
+    color: var(--blue);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 5rem;
     box-sizing: border-box;
     padding: 0;
+}
+
+#grid0, 
+#grid1,
+#grid2{
+    border-top:none
+}
+
+#grid0, 
+#grid3,
+#grid6{
+    border-left:none
+}
+
+#grid6, 
+#grid7,
+#grid8{
+    border-bottom:none
+}
+#grid2, 
+#grid5,
+#grid8{
+    border-right:none
 }
 
 .ocuppiedGrid{

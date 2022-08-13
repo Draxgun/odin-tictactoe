@@ -21,6 +21,7 @@ const gameBoard = (() =>{
             let grid = document.createElement('div');
             grid.classList.add("grid");
             grid.setAttribute('id', `grid${i}`);
+            grid.textContent = ''
             boardContainer.appendChild(grid);  
         }
 
@@ -29,7 +30,6 @@ const gameBoard = (() =>{
             console.log(grid.textContent)
             grid.addEventListener('click',() =>{
                 grid.textContent = 'x'
-                grid.classList.remove('grid')
                 grid.classList.add('ocuppiedGrid')
                 console.log(checkForWinner())
             })
@@ -127,10 +127,11 @@ const gameBoard = (() =>{
     ]
     
     let boardStatus = () =>{
-        let grids = document.querySelectorAll('.ocuppiedGrid')
+        let grids = document.querySelectorAll('.grid')
         let boardArray = [];
         grids.forEach(grid => {
             boardArray.push(grid.textContent)
+            
         });
         return boardArray
     }
@@ -176,6 +177,9 @@ const gameBoard = (() =>{
         
         let results = []
         winningCombinations.forEach(winningCombination => {
+            console.log(x)
+            console.log(winningCombination)
+            console.log(checker(x,winningCombination))
             results.push(checker(x,winningCombination));
         });
 
